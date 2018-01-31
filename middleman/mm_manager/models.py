@@ -14,14 +14,25 @@ class Middleman(models.Model):
     # but not the reverse
     garlic_user = models.OneToOneField(GarlicUser, models.CASCADE)
 
-    rating = models.FloatField()
-    fee = models.FloatField()
+    rating = models.FloatField(null=True)
+    fee = models.FloatField(null=True)
+    bio = models.CharField(max_length=256, null=True)
+
+class Trade(models.Model):
+    item_1 = models.CharField(max_length=64)
+    item_2 = models.CharField(max_length=64)
+    
+    person_1 = models.CharField(max_length=64)
+    person_2 = models.CharField(max_length=64)
+    middleman = models.ForeignKey(Middleman, models.CASCADE)
+    
+    time_created = models.DateTimeField()
+    time_mm_received_1 = models.DateTimeField(null=True)
+    time_mm_received_2 = models.DateTimeField(null=True)
+    time_mm_completed = models.DateTimeField(null=True)
 
 @receiver(post_save, sender=User)
-def create_garlic_user(sender, instance, created, **kwargs):
-    if created:
+def save_user_garlicuser(sender, instance, **kwargs):
+    if instance.garlicuser == None:
         GarlicUser.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_garlic_user(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.garlicuser.save()

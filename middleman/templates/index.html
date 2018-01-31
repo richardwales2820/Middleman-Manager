@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .btn-group-vertical > .btn {
+        margin-bottom:20px;
+        border-radius:10px !important;
+    }
+</style>
+
+<div class="container-fluid mainBanner">
+
+    <img src="{% static 'grlc.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    <h1 class="display-2 text-center" style="color:white">Trade Center</h1>
+
+    <div class="btn-group-vertical" style="width: 100%;">
+        <a href="#" class="btn btn-warning" style="padding: 20px; font-size: 20px">New Trade</a>
+        <a href="#" class="btn btn-primary" style="padding: 20px; font-size: 20px">View Trades: {{ num_trades }}</a>
+
+        {% if is_mm %}
+            <a href="#" class="btn btn-primary" style="padding: 20px; font-size: 20px">Middleman Requests: {{ num_requests }}</a>
+            <a href="mm-register" class="btn btn-primary" style="padding: 20px; font-size: 20px">Modify Middleman</a>
+        {% endif %}
+        {% if not is_mm %}
+            <a href="mm-register" class="btn btn-primary" style="padding: 20px; font-size: 20px">Register Middleman</a>
+        {% endif %}
+    </div>
+
+    <p class="lead text-center" style="color: white">
+            Donate GRLC to GcG9BTAJkjyWoc7jcHh6JmkboZcSDpDh9m (Please)
+    </p>
+    
+</div>
+{% endblock %}

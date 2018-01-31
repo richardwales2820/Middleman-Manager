@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .form-control {
+        margin-bottom:20px;
+        padding: 30px;
+        font-size: 20px;
+      }
+</style>
+
+<div class="container-fluid mainBanner">
+
+    <img src="{% static 'grlc.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    <h1 class="display-2 text-center" style="color:white">Trade Center</h1>
+
+    <form method="POST" action="/mm-register/">
+        {% csrf_token %}
+        {% if fee %}
+            <input class="form-control form-control-lg" type="number" value="{{ fee }}" placeholder="{{ fee }}" step="0.00000001" id="the_id" name="fee">
+        {% endif %}
+        {% if not fee %}
+            <input class="form-control form-control-lg" type="number" placeholder="{{ fee }}" step="0.00000001" id="the_id" name="fee">
+        {% endif %}
+        {% if bio %}
+            <input class="form-control form-control-lg" type="text" name="bio" value="{{ bio }}" placeholder="{{ bio }}">
+        {% endif %}
+        {% if not bio %}
+            <input class="form-control form-control-lg" type="text" name="bio" placeholder="{{ bio }}">
+        {% endif %}
+        <input class="btn btn-primary btn-block" type="submit" value="Save" style="padding: 20px; font-size: 20px">
+    </form>
+    
+</div>
+
+<script>
+        var input_field = document.getElementById('the_id');
+   
+        input_field.addEventListener('change', function() {
+            
+            var v = parseFloat(this.value);
+            if (isNaN(v)) {
+                this.value = '';
+            } else {
+                this.value = v.toFixed(8);
+            }
+        });
+   </script>
+{% endblock %}

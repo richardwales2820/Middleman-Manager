@@ -1,0 +1,37 @@
+{% load static %}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<style>
+       body {
+        animation: colorchange 50s infinite; /* animation-name followed by duration in seconds*/
+           /* you could also use milliseconds (ms) or something like 2.5s */
+        -webkit-animation: colorchange 50s infinite; /* Chrome and Safari */
+      }
+    
+      @keyframes colorchange
+      {
+        0%   {background: #754c68;}
+        50%  {background: #c6426e;}
+        100%   {background: #754c68;}
+      }
+    
+      @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+      {
+        0%   {background: #754c68;}
+        100%   {background: #754c68;}
+      }
+
+      .form-control {
+        margin-bottom:20px;
+        padding: 30px;
+        font-size: 20px;
+      }
+  </style>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+  {% block content %}
+  {% endblock %}

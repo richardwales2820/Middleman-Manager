@@ -1,10 +1,46 @@
-{% block title %}Login{% endblock %}
+{% load bootstrap %}
 
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<style>
+  .mainBanner {
+    position: relative;
+    height: 100vh;
+    min-height: 400pt;
+    padding-top: 40pt;
+    background: linear-gradient(135deg,#754c68,#c6426e) 50%;
+    background-size: 400% 400%;
+    animation: animate-gradient 5s infinite;
+  }
+
+  .control-label {
+    color: white;
+  }
+  
+  .form-control {
+    margin-bottom:20px;
+    padding: 30px
+  }
+
+</style>
 {% block content %}
-  <h2>Login</h2>
-  <form method="post">
+<div class="container-fluid mainBanner">
+  <h1 class="display-2 text-center" style="color:white">Login</h1>
+
+  <br>
+
+  <form method="post" class="text-center">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+    {{ form|bootstrap }}
+    <button type="submit" class="btn btn-warning btn-block" style="padding: 20px; font-size: 20px">Login</button>
   </form>
+
+  <a href="#" class="btn btn-warning btn-block" style="padding: 20px; font-size: 20px">Register</a>
+
+</div>
 {% endblock %}

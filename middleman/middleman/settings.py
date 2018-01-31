@@ -29,8 +29,9 @@ SECRET_KEY = config.django_secret
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.15']
 
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Application definition
 
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mm_manager',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -117,9 +120,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
+LOGIN_REDIRECT_URL = 'home'
 
 STATIC_URL = '/static/'
-LOGIN_REDIRECT_URL = 'home'
+STATICFILES_DIRS = [STATIC_DIR, ]
