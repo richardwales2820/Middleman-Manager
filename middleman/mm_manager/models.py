@@ -18,6 +18,9 @@ class Middleman(models.Model):
     fee = models.FloatField(null=True)
     bio = models.CharField(max_length=256, null=True)
 
+    def __str__(self):
+        return '{}: {}% ✔ ({}GRLC)'.format(self.garlic_user.user.username, self.rating, self.fee)
+
 class Trade(models.Model):
     item_1 = models.CharField(max_length=64)
     item_2 = models.CharField(max_length=64)

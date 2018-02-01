@@ -1,35 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load bootstrap %}
 {% block content %}
 
 <style>
-    .form-control {
-        margin-bottom:20px;
-    }
+    .control-label {
+    color: white;
+  }
+  
+  .form-control {
+    margin-bottom:20px;
+    padding: 30px
+  }
 </style>
 
 <div class="container-fluid mainBanner">
 
-    <img src="{% static 'grlc.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
     <h1 class="display-2 text-center" style="color:white">Trade Center</h1>
 
     <form method="POST" action="/mm-register/">
         {% csrf_token %}
-        {% if fee %}
-            <input class="form-control form-control-lg" type="number" value="{{ fee }}" placeholder="{{ fee }}" step="0.00000001" id="the_id" name="fee">
-        {% endif %}
-        {% if not fee %}
-            <input class="form-control form-control-lg" type="number" placeholder="{{ fee }}" step="0.00000001" id="the_id" name="fee">
-        {% endif %}
-        {% if bio %}
-            <input class="form-control form-control-lg" type="text" name="bio" value="{{ bio }}" placeholder="{{ bio }}">
-        {% endif %}
-        {% if not bio %}
-            <input class="form-control form-control-lg" type="text" name="bio" placeholder="{{ bio }}">
-        {% endif %}
+        {{ form|bootstrap }}
     
-        <input class="form-control form-control-lg" type="submit" value="Save" class="btn-warning">
+        <input class="btn btn-primary btn-block" type="submit" value="Create" style="padding: 20px; font-size: 20px">
     </form>
     
 </div>

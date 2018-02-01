@@ -11,12 +11,10 @@
 </style>
 
 <div class="container-fluid mainBanner">
-
-    <img src="{% static 'grlc.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
     <h1 class="display-2 text-center" style="color:white">Trade Center</h1>
 
     <div class="btn-group-vertical" style="width: 100%;">
-        <a href="#" class="btn btn-warning" style="padding: 20px; font-size: 20px">New Trade</a>
+        <a href="create-trade" class="btn btn-warning" style="padding: 20px; font-size: 20px">New Trade</a>
         <a href="#" class="btn btn-primary" style="padding: 20px; font-size: 20px">View Trades: {{ num_trades }}</a>
 
         {% if is_mm %}

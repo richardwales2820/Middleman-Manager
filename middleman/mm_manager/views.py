@@ -1,6 +1,25 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
 from .models import *
+from .forms import *
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.garlicuser.address = form.cleaned_data.get('address')
+            user.save()
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect(index)
+    else:
+        form = SignUpForm()
+
+    return render(request, 'signup.html', {'form': form})
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -56,5 +75,6 @@ def create_trade(request):
     # Create the initial exchange order
     # Allow for middleman search. If none available, still allow trade to create
     # Unique link generated corresponding to the trade. Can post to reddit. People can access trade that way
+    form = TradeForm()
 
-    return render(request, 'create-trade.html', {'mm': middlemen})
+    return render(request, 'create-trade.html', {'mm': middlemen, 'form': form})

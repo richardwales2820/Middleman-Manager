@@ -30,17 +30,14 @@
 </style>
 {% block content %}
 <div class="container-fluid mainBanner">
-  <h1 class="display-2 text-center" style="color:white">Login</h1>
+  <h1 class="display-2 text-center" style="color:white">Signup</h1>
 
   <br>
 
   <form method="post" class="text-center">
     {% csrf_token %}
     {{ form|bootstrap }}
-    <button type="submit" class="btn btn-warning btn-block" style="padding: 20px; font-size: 20px">Login</button>
+    <button type="submit" class="btn btn-warning btn-block" style="padding: 20px; font-size: 20px">Register</button>
   </form>
-
-  <a href="signup" class="btn btn-warning btn-block" style="padding: 20px; font-size: 20px">Register</a>
-
 </div>
 {% endblock %}
