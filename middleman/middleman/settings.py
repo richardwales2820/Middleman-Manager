@@ -29,7 +29,7 @@ SECRET_KEY = config.django_secret
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.15']
+ALLOWED_HOSTS = ['192.168.0.15', '127.0.0.1', '192.168.0.25']
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 

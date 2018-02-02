@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
 <style>
   .mainBanner {
     position: relative;
@@ -26,7 +27,11 @@
     margin-bottom:20px;
     padding: 30px
   }
-
+  .has-error .control-label,
+  .has-error .help-block,
+  .has-error .form-control-feedback {
+    color: white;
+}
 </style>
 {% block content %}
 <div class="container-fluid mainBanner">

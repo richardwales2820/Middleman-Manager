@@ -15,7 +15,7 @@
 
     <div class="btn-group-vertical" style="width: 100%;">
         <a href="create-trade" class="btn btn-warning" style="padding: 20px; font-size: 20px">New Trade</a>
-        <a href="#" class="btn btn-primary" style="padding: 20px; font-size: 20px">View Trades: {{ num_trades }}</a>
+        <a href="{% url 'trades' %}" class="btn btn-primary" style="padding: 20px; font-size: 20px">View Trades: {{ num_trades }}</a>
 
         {% if is_mm %}
             <a href="#" class="btn btn-primary" style="padding: 20px; font-size: 20px">Middleman Requests: {{ num_requests }}</a>
@@ -25,6 +25,10 @@
             <a href="mm-register" class="btn btn-primary" style="padding: 20px; font-size: 20px">Register Middleman</a>
         {% endif %}
     </div>
+
+    <p class="lead text-center" style="color: white">
+            Your address: {{ addr }}
+    </p>
 
     <p class="lead text-center" style="color: white">
             Donate GRLC to GcG9BTAJkjyWoc7jcHh6JmkboZcSDpDh9m (Please)

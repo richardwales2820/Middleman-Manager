@@ -5,12 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class TradeForm(ModelForm):
-    middleman = forms.ModelChoiceField(queryset=Middleman.objects.order_by('rating'))
+    middleman = forms.ModelChoiceField(queryset=Middleman.objects.all())
+    def __init__(self, uid, *args, **kwargs):
+        super(TradeForm, self).__init__(*args, **kwargs)
+        self.fields['middleman'].queryset = Middleman.objects.exclude(garlic_user_id=uid)
 
     class Meta:
         model = Trade
-        fields = ['item_1', 'person_2', 'item_2', 'middleman']
-        labels = {'item_1': "I am giving", 'person_2': 'to', 'item_2': 'for'}
+        fields = ['item_1', 'item_2', 'middleman']
+        labels = {'item_1': "I am trading", 'item_2': 'for'}
 
 class SignUpForm(UserCreationForm):
     address = forms.CharField()

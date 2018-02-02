@@ -8,6 +8,8 @@ class GarlicUser(models.Model):
     user = models.OneToOneField(User, models.CASCADE)
     address = models.CharField(max_length=35)
     
+    def __str__(self):
+        return '{}: {}'.format(self.user.username, self.address)
 
 class Middleman(models.Model):
     # OneToOne is here so that if User is deleted, Middleman is deleted too,
@@ -25,17 +27,27 @@ class Trade(models.Model):
     item_1 = models.CharField(max_length=64)
     item_2 = models.CharField(max_length=64)
     
-    person_1 = models.CharField(max_length=64)
-    person_2 = models.CharField(max_length=64)
-    middleman = models.ForeignKey(Middleman, models.CASCADE)
+    person_1 = models.ForeignKey(GarlicUser, models.CASCADE)
+    person_2 = models.ForeignKey(GarlicUser, models.CASCADE, related_name='+', null=True)
+    middleman = models.ForeignKey(Middleman, models.CASCADE, null=True)
     
     time_created = models.DateTimeField()
+    time_u1_sent = models.DateTimeField(null=True)
+    u1_notes = models.CharField(max_length=128, null=True)
+    time_u2_sent = models.DateTimeField(null=True)
+    u2_notes = models.CharField(max_length=128, null=True)
     time_mm_received_1 = models.DateTimeField(null=True)
     time_mm_received_2 = models.DateTimeField(null=True)
-    time_mm_completed = models.DateTimeField(null=True)
+    time_mm_sent_1 = models.DateTimeField(null=True)
+    time_mm_sent_2 = models.DateTimeField(null=True)
+    mm_1_notes = models.CharField(max_length=128, null=True)
+    mm_2_notes = models.CharField(max_length=128, null=True)
+    time_u1_received = models.DateTimeField(null=True)
+    time_u2_received = models.DateTimeField(null=True)
+    time_completed = models.DateTimeField(null=True)
 
 @receiver(post_save, sender=User)
 def save_user_garlicuser(sender, instance, **kwargs):
-    if instance.garlicuser == None:
+    if hasattr(instance, 'garlicuser') == False or instance.garlicuser == None:
         GarlicUser.objects.create(user=instance)
     instance.garlicuser.save()

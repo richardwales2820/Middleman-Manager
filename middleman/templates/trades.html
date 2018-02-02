@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style>
+    .control-label {
+    color: white;
+  }
+  
+  .form-control {
+    margin-bottom:20px;
+    padding: 30px
+  }
+
+  .lead {
+      color: white;
+  }
+
+  .table {
+    table-layout:fixed;
+    }
+
+    .table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+    table{
+    width: 100%;
+    }
+
+    thead tr th{
+    text-align: left;
+    }
+
+    tr td{
+    padding: 8px;
+    }
+
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function($) {
+        $(".clickable-tr").click(function() {
+            window.document.location = $(this).attr('href');
+        });
+    });
+</script>
+
+<div class="container-fluid mainBanner">
+
+    <h1 class="display-2 text-center" style="color:white">Trade Center</h1>
+
+    <table class="table">
+        <thead>
+            <a href="{% url "index" %}">
+            <tr>
+                <th class="lead">Trade Id</th>
+                <th class="lead">User 1</th>
+                <th class="lead">Item 1</th>
+                <th class="lead">User 2</th>
+                <th class="lead">Item 2</th>
+            </tr>
+        </a>
+        </thead>
+        <tbody>
+    {% for trade in trades %}    
+    
+    {% if trade.time_mm_completed != None %}
+        <tr class="table-success clickable-tr" href="{% url "index" %}"></tr>
+    {% else %}
+        <tr class="clickable-tr" href="{% url "trade_details" trade.id %}">
+    {% endif %}
+        <th  class="lead" scope="row">{{ trade.id }}</th>
+        <td class="lead">{{ trade.person_1.user.username }}</td>
+        <td class="lead">{{ trade.item_1 }}</td>
+        <td class="lead">{{ trade.person_2.user.username }}</td>
+        <td class="lead">{{ trade.item_2 }}</td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

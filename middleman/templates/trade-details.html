@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+{% block content %}
+
+<style>
+    .control-label {
+    color: white;
+  }
+  
+  .form-control {
+    margin-bottom:20px;
+    padding: 30px
+  }
+
+  .lead {
+      color: white;
+  }
+
+  .table-wrapper {
+    overflow-x: scroll;
+	width: 600px;
+	margin: 0 auto;
+}
+
+    .table td {
+        white-space: nowrap;
+        }
+</style>
+
+<div class="container-fluid mainBanner">
+    <h1 class="display-2 text-center" style="color:white">Trade Center</h1>
+    <form method="POST" action="/mm-register/">
+        {% csrf_token %}
+    {% if request.user.username == trade.person_1.user.username and trade.time_u1_sent == None %}
+        <div class="form-group">
+            <label class="control-label">Notes (TX hash)</label>
+            <input type="text" class="form-control" id="notes" placeholder="Notes/TX hash">
+            <input type="hidden" name="u1_sent" value="True">
+            <input class="btn btn-primary btn-block" type="submit" value="Sent" style="padding: 20px; font-size: 20px">
+        </div>
+    {% elif request.user.username == trade.person_2.user.username and trade.time_u2_sent == None %}
+        <div class="form-group">
+            <label class="control-label">Notes (TX hash)</label>
+            <input type="text" class="form-control" id="notes" placeholder="Notes/TX hash">
+            <input type="hidden" name="u2_sent" value="True">
+            <input class="btn btn-primary btn-block" type="submit" value="Sent" style="padding: 20px; font-size: 20px">
+        </div>
+    {% elif trade.time_mm_sent_1 != None and trade.time_u1_received == None and request.user.username == trade.person_1.user.username %}
+        <input type="hidden" name="u1_received" value="True">
+        <input class="btn btn-primary btn-block" type="submit" value="Received" style="padding: 20px; font-size: 20px">
+    {% elif trade.time_mm_sent_2 != None and trade.time_u2_received == None and request.user.username == trade.person_2.user.username %}
+        <input type="hidden" name="u2_received" value="True">
+        <input class="btn btn-primary btn-block" type="submit" value="Received" style="padding: 20px; font-size: 20px">
+    {% endif %}
+
+    </form>
+    <br>
+    <div class="table-responsive">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th  class="lead" scope="row">User 1</th>
+            <td class="lead">{{ trade.person_1.user.username }} {{ trade.person_1.address }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">Item 1</th>
+            <td class="lead">{{ trade.item_1 }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">User 2</th>
+            <td class="lead">{{ trade.person_2.user.username }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">Item 2</th>
+            <td class="lead">{{ trade.person_2 }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">Middleman</th>
+            <td class="lead">{{ trade.middleman.garlic_user.user.username}}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">Trade Created</th>
+            <td class="lead">{{ trade.time_created }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">User 1 Sent</th>
+            <td class="lead">{{ trade.time_u1_sent }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">User 1 Notes</th>
+            <td class="lead">{{ trade.u1_notes }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">User 2 Sent</th>
+            <td class="lead">{{ trade.time_u2_sent }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">User 2 Notes</th>
+            <td class="lead">{{ trade.u2_notes }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">MM Received 1</th>
+            <td class="lead">{{ trade.time_mm_received_1 }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">MM Received 2</th>
+            <td class="lead">{{ trade.time_mm_received_2 }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">MM Sent 1</th>
+            <td class="lead">{{ trade.time_mm_sent_1 }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">MM 1 Notes</th>
+            <td class="lead">{{ trade.mm_1_notes }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">MM Sent 2</th>
+            <td class="lead">{{ trade.time_mm_sent_2 }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">MM 2 Notes</th>
+            <td class="lead">{{ trade.mm_2_notes }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">User 1 Received</th>
+            <td class="lead">{{ trade.time_u1_received }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">User 2 Received</th>
+            <td class="lead">{{ trade.time_u2_received }}</td>
+        </tr>
+        <tr>
+            <th  class="lead" scope="row">Trade Completed</th>
+            <td class="lead">{{ trade.time_completed }}</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}
